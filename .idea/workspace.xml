@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbc6c86b-4bc6-483e-8210-f58dcca89116" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Src/Papier.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Src/Schaar.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Src/Steen.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Src/Main.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,11 +33,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Schaar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Schaar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Src/Schaar.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
               <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -70,6 +76,7 @@
         <option value="$PROJECT_DIR$/Src/Steen.java" />
         <option value="$PROJECT_DIR$/Src/Papier.java" />
         <option value="$PROJECT_DIR$/Src/Schaar.java" />
+        <option value="$PROJECT_DIR$/Src/Main.java" />
       </list>
     </option>
   </component>
@@ -241,12 +248,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1526295513894</updated>
-      <workItem from="1526295524850" duration="158000" />
+      <workItem from="1526295524850" duration="378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158000" />
+    <option name="totallyTimeSpent" value="378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -311,6 +318,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
           <folding />
         </state>
       </provider>
