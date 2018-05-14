@@ -1,7 +1,11 @@
-import javax.swing.*;
+import java.io.IOException;
 
-public class Schaar
-{
-    private String naam;
-    private ImageIcon plaatje;
+public class Schaar extends Object{
+
+
+    public Schaar(String naam) throws IOException {
+        super(naam);
+    }
+
+
 }
