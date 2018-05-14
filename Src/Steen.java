@@ -1,7 +1,9 @@
 import javax.swing.*;
+import java.io.IOException;
 
-public class Steen
-{
-    private String naam;
-    private ImageIcon plaatje;
+public class Steen extends Object{
+
+    public Steen(String naam) throws IOException {
+        super(naam);
+    }
 }
