@@ -1,3 +1,5 @@
+package Game;
+
 import javax.swing.*;
 import java.io.IOException;
 
@@ -10,6 +12,5 @@ public class Object  {
         this.naam = plaatjeNaam;
 
         plaatje = new ImageIcon(naam);
-
     }
 }
