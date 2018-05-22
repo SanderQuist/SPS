@@ -39,7 +39,7 @@ public class Menu extends JFrame
         papier = new JButton("Papier");
         schaar = new JButton("Schaar");
         timer = new JLabel("Tijd:" + tijd);
-        
+
         timer.setFont(new Font("TimesRoman", 1, 20));
 
         center.add(steen);
