@@ -8,7 +8,7 @@ public class Papier extends Object {
 
 
     public Papier() throws IOException {
-        super("Paper.png");
+        super("Resources\\Paper.png");
     }
 
 

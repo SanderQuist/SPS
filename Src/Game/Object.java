@@ -3,7 +3,7 @@ package Game;
 import javax.swing.*;
 import java.io.IOException;
 
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
+
 
 public class Object  {
 
