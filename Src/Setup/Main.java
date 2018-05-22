@@ -11,18 +11,12 @@ public class Main extends JPanel {
 
 
     public static void main(String[] args) {
-
-        JFrame frame = new JFrame("Eindopdracht");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setContentPane(new Main());
-
-        frame.setVisible(true);
+        Menu menu = new Menu();
     }
 
     public Main () {
         Settings.getInstance();
-        Menu menu = new Menu();
+
 
     }
 

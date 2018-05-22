@@ -14,10 +14,17 @@ public class Menu extends JFrame
 
     public Menu()
     {
+        JFrame menu = new JFrame();
         JPanel content = new JPanel(new BorderLayout());
         JPanel center = new JPanel(new GridLayout(1,3));
         content.add(center, BorderLayout.CENTER);
         setupComponents();
+
+        menu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        menu.setContentPane(new Main());
+
+        menu.setVisible(true);
 
     }
 
