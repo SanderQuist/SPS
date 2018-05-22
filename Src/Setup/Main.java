@@ -6,11 +6,12 @@ import Game.Schaar;
 import Game.Steen;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Main extends JPanel {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Menu menu = new Menu();
     }
 

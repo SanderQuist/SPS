@@ -7,8 +7,8 @@ import java.io.IOException;
 public class Papier extends Object {
 
 
-    public Papier(String naam) throws IOException {
-        super(naam);
+    public Papier() throws IOException {
+        super("Paper.png");
     }
 
 

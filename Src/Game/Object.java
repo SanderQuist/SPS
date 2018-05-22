@@ -3,6 +3,8 @@ package Game;
 import javax.swing.*;
 import java.io.IOException;
 
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
+
 public class Object  {
 
     private String naam;
@@ -11,6 +13,15 @@ public class Object  {
     public Object(String plaatjeNaam) throws IOException {
         this.naam = plaatjeNaam;
 
-        plaatje = new ImageIcon(naam);
+        System.out.println(naam);
+        plaatje = new ImageIcon(getClass().getResource(naam));
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public ImageIcon getPlaatje() {
+        return plaatje;
     }
 }
