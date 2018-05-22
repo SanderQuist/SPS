@@ -1,8 +1,14 @@
 package Setup;
 
+import Game.Object;
+import Game.Papier;
+import Game.Schaar;
+import Game.Steen;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Menu extends JFrame
 {
@@ -15,9 +21,14 @@ public class Menu extends JFrame
     private JPanel upperBar;
     private JPanel center;
     private JFrame menu;
+    private Object papieros = new Papier();
+    private Object schaaros = new Schaar();
+    private Object steenos = new Steen();
+    private Object choice = null;
+    private Object object = new Object("Kip");
 
-    public Menu()
-    {
+
+    public Menu() throws IOException {
         menu = new JFrame();
         content = new JPanel(new BorderLayout());
         menu.add(content);
@@ -35,14 +46,32 @@ public class Menu extends JFrame
     }
 
     public void setupComponents(){
-        steen = new JButton("Steen");
-        papier = new JButton("Papier");
-        schaar = new JButton("Schaar");
+        steen = new JButton(steenos.getPlaatje());
+        papier = new JButton(papieros.getPlaatje());
+        schaar = new JButton(schaaros.getPlaatje());
         timer = new JLabel("Tijd:" + tijd);
+
+        steen.addActionListener(evt -> {
+            choice = steenos;
+            System.out.println(choice.getNaam());
+
+        });
+
+        papier.addActionListener(evt -> {
+            choice = papieros;
+            System.out.println(choice.getNaam());
+        });
+
+        schaar.addActionListener(evt -> {
+            choice = schaaros;
+            System.out.println(choice.getNaam());
+        });
 
         center.add(steen);
         center.add(papier);
         center.add(schaar);
         upperBar.add(timer);
     }
+
+
 }
