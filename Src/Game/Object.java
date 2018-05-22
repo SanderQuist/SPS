@@ -14,7 +14,7 @@ public class Object  {
         this.naam = plaatjeNaam;
 
         System.out.println(naam);
-        plaatje = new ImageIcon(getClass().getResource(naam));
+        plaatje = new ImageIcon(naam);
     }
 
     public String getNaam() {
