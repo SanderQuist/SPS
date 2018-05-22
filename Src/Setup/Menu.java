@@ -50,6 +50,8 @@ public class Menu extends JFrame
         papier = new JButton(papieros.getPlaatje());
         schaar = new JButton(schaaros.getPlaatje());
         timer = new JLabel("Tijd:" + tijd);
+        
+        timer.setFont(new Font("TimesRoman", 1, 20));
 
         steen.addActionListener(evt -> {
             choice = steenos;
