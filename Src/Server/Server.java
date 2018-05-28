@@ -1,4 +1,4 @@
-package Setup;
+package Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,25 +6,27 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Netwerk
+public class Server
 {
-    private void client(){
+    public Server(){
         int port = 8000;
-        String host = "localhost";
         DataInputStream in;
         DataOutputStream out;
+        ServerSocket server;
         Socket socket;
 
         try
         {
-            socket = new Socket(host, port);
+            server = new ServerSocket(port);
+            socket = server.accept();
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-            out.writeDouble(10);
             System.out.println(in.readDouble());
+            out.writeDouble(20);
         } catch (IOException e)
         {
             e.printStackTrace();
         }
+
     }
 }
