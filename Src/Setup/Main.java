@@ -6,31 +6,45 @@ import Game.Schaar;
 import Game.Steen;
 
 import javax.swing.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class Main extends JPanel {
+public class Main extends JApplet implements Runnable, RockPaperScissorConstants{
+    // Indicate whether the player has the turn
+    private boolean myTurn = false;
 
+    // selected object
+    private Object selected;
+
+    // input and output stream
+    private DataInputStream fromServer;
+    private DataOutputStream toServer;
+
+    // Continue to play?
+    private boolean continueToPlay = true;
+
+    // Wait for the player select
+    private boolean waiting = true;
+
+    // Indicate if it runs as application
+    private boolean isStandAlone = false;
+
+    // Host name or ip
+    private String host = "localhost";
 
     public static void main(String[] args) throws IOException {
+        Main applet = new Main();
+        applet.isStandAlone = true;
+        if(args.length == 1) applet.host= args[0];
+
         Menu menu = new Menu();
+        applet.start();
     }
 
-    public Main () {
-        Settings.getInstance();
 
+    @Override
+    public void run() {
 
-    }
-
-    public int compare(Object one, Object two){
-        if(one == two)
-            return 0;
-        else if (one instanceof Papier && two instanceof Steen)
-            return 1;
-        else if (one instanceof Steen && two instanceof Schaar)
-            return 1;
-        else if (one instanceof Schaar && two instanceof Papier)
-            return 1;
-        else
-            return 2;
     }
 }
