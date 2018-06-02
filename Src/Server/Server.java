@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -57,7 +58,7 @@ public class Server
                         player1.getInetAddress().getHostAddress() + '\n');
 
                 // Notify that the player is Player 1
-                new DataOutputStream(
+                new ObjectOutputStream(
                         player1.getOutputStream()).writeInt(PLAYER1);
 
                 // Connect to player 2
@@ -69,7 +70,7 @@ public class Server
                         player2.getInetAddress().getHostAddress() + '\n');
 
                 // Notify that the player is Player 2
-                new DataOutputStream(
+                new ObjectOutputStream(
                         player2.getOutputStream()).writeInt(PLAYER2);
 
                 // Display this session and increment session number
@@ -83,7 +84,8 @@ public class Server
 //         new DataOutputStream(
 //           player1.getOutputStream()).writeInt(CONTINUE);
 
-                // Start the new thread
+                // Start the
+                // new thread
                 new Thread(task).start();
             }
         }

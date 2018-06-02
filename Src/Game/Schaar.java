@@ -8,7 +8,7 @@ public class Schaar extends Object {
 
 
     public Schaar() throws IOException {
-        super("Resources\\scissors.png");
+        super("SPS\\Resources\\scissors.png");
     }
 
 

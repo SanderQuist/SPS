@@ -7,9 +7,8 @@ import Game.Steen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 
 public class Main extends JApplet implements Runnable, RockPaperScissorConstants{
     // Indicate whether the player has the turn
@@ -19,8 +18,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private Object selected;
 
     // input and output stream
-    private DataInputStream fromServer;
-    private DataOutputStream toServer;
+    private ObjectInputStream fromServer;
+    private ObjectOutputStream toServer;
 
     // Continue to play?
     private boolean continueToPlay = true;
@@ -54,6 +53,7 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     public Main() throws IOException
     {
         createMenu();
+        connectToServer();
     }
 
     public static void main(String[] args) throws IOException {
@@ -65,10 +65,46 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         applet.start();
     }
 
+    private void connectToServer() {
+        try {
+            // Create a socket to connect to the server
+            Socket socket;
+            if (isStandAlone)
+                socket = new Socket(host, 8000);
+            else
+                socket = new Socket(getCodeBase().getHost(), 8000);
+
+            // Create an input stream to receive data from the server
+            fromServer = new ObjectInputStream(socket.getInputStream());
+
+            // Create an output stream to send data to the server
+            toServer = new ObjectOutputStream(socket.getOutputStream());
+        }
+        catch (Exception ex) {
+            System.err.println(ex);
+        }
+
+        // Control the game on a separate thread
+        Thread thread = new Thread(this);
+        thread.start();
+    }
 
     @Override
     public void run() {
 
+        try {
+            int player = fromServer.readInt();
+            System.out.println(player);
+
+            while (continueToPlay) {
+//                    waitForPlayerAction(); // Wait for players to move to move
+//                    sendMove(); // Send the move to the server
+//                    receiveInfoFromServer(); // Receive info from the server
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createMenu(){

@@ -8,7 +8,7 @@ public class Steen extends Object {
 
 
     public Steen() throws IOException {
-        super("Resources\\Rock.png");
+        super("SPS\\Resources\\Rock.png");
     }
 
 
