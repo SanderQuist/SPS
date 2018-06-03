@@ -33,11 +33,9 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     // Host name or ip
     private String host = "localhost";
 
-    private String tijd;
     private JButton steen;
     private JButton papier;
     private JButton schaar;
-    private JLabel timer;
     private JPanel content;
     private JPanel upperBar;
     private JPanel center;
@@ -156,11 +154,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         steen = new JButton(steenos.getPlaatje());
         papier = new JButton(papieros.getPlaatje());
         schaar = new JButton(schaaros.getPlaatje());
-        timer = new JLabel("Tijd:" + tijd);
         whiteSpace1 = new JLabel("");
         whiteSpace2 = new JLabel("");
-
-        timer.setFont(new Font("TimesRoman", 1, 20));
 
         steen.addActionListener(evt -> {
             if(choice==null)
@@ -196,58 +191,9 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         center.add(schaar);
         center.add(whiteSpace2);
         center.add(papier);
-        upperBar.add(timer);
 
         add(p, BorderLayout.CENTER);
         connectToServer();
 
-    }
-
-    public void paintCompontents(Graphics2D g){
-        super.paintComponents(g);
-        Graphics2D g2d = (Graphics2D) g;
-
-        g2d.drawLine(1000,1000,1000,1000);
-
-    }
-
-    public void setupComponents(){
-        steen = new JButton(steenos.getPlaatje());
-        papier = new JButton(papieros.getPlaatje());
-        schaar = new JButton(schaaros.getPlaatje());
-        timer = new JLabel("Tijd:" + tijd);
-        whiteSpace1 = new JLabel("");
-        whiteSpace2 = new JLabel("");
-
-        timer.setFont(new Font("TimesRoman", 1, 20));
-
-        steen.addActionListener(evt -> {
-            choice = steenos;
-            System.out.println(choice.getNaam());
-
-        });
-
-        papier.addActionListener(evt -> {
-            choice = papieros;
-            System.out.println(choice.getNaam());
-        });
-
-        schaar.addActionListener(evt -> {
-            choice = schaaros;
-            System.out.println(choice.getNaam());
-        });
-
-        steen.setPreferredSize(new Dimension(135,181));
-        papier.setPreferredSize(new Dimension(136,181));
-        schaar.setPreferredSize(new Dimension(230,181));
-        whiteSpace1.setPreferredSize(new Dimension(100,100));
-        whiteSpace2.setPreferredSize(new Dimension(100,100));
-
-        center.add(steen);
-        center.add(whiteSpace1);
-        center.add(schaar);
-        center.add(whiteSpace2);
-        center.add(papier);
-        upperBar.add(timer);
     }
 }

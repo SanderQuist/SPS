@@ -9,32 +9,29 @@ import Setup.RockPaperScissorConstants;
 import java.io.*;
 import java.net.Socket;
 
-class HandleSession implements Runnable, RockPaperScissorConstants {
+class HandleSession implements Runnable, RockPaperScissorConstants
+{
     private Socket player1;
     private Socket player2;
 
-    // Create and initialize cells
-    private char[][] cell =  new char[3][3];
-
-    private DataInputStream fromPlayer1;
-    private DataOutputStream toPlayer1;
-    private DataInputStream fromPlayer2;
-    private DataOutputStream toPlayer2;
-
-    // Continue to play
-    private boolean continueToPlay = true;
-
-    /** Construct a thread */
-    public HandleSession(Socket player1, Socket player2) {
+    /**
+     * Construct a thread
+     */
+    public HandleSession(Socket player1, Socket player2)
+    {
         this.player1 = player1;
         this.player2 = player2;
 
 
     }
 
-    /** Implement the run() method for the thread */
-    public void run() {
-        try {
+    /**
+     * Implement the run() method for the thread
+     */
+    public void run()
+    {
+        try
+        {
             // Create data input and output streams
             ObjectInputStream fromPlayer1 = new ObjectInputStream(
                     player1.getInputStream());
@@ -52,72 +49,80 @@ class HandleSession implements Runnable, RockPaperScissorConstants {
 
             // Continuously serve the players and determine and report
             // the game status to the players
-            while (true) {
+            while (true)
+            {
                 // Receive a move from players
                 Object choice1 = (Object) fromPlayer1.readObject();
                 Object choice2 = (Object) fromPlayer2.readObject();
 
 
-                if(choice1 != null && choice2 != null) {
+                if (choice1 != null && choice2 != null)
+                {
                     // Check if Player 1 wins
-                    if (isWon(choice1, choice2) == 1) {
+                    if (isWon(choice1, choice2) == 1)
+                    {
                         toPlayer1.writeInt(PLAYER1_WON);
                         toPlayer2.writeInt(PLAYER1_WON);
                         break; // Break the loop
-                    } else if (isWon(choice1, choice2) == 3) { // Check if all cells are filled
+                    } else if (isWon(choice1, choice2) == 3)
+                    { // Check if all cells are filled
                         toPlayer1.writeInt(DRAW);
                         toPlayer2.writeInt(DRAW);
                         break;
-                    } else if (isWon(choice1, choice2) == 2) {
+                    } else if (isWon(choice1, choice2) == 2)
+                    {
                         // Notify player 2 to take the turn
                         toPlayer1.writeInt(PLAYER2_WON);
                         toPlayer2.writeInt(PLAYER2_WON);
                     }
-                }
-                else if(choice1 != null){
+                } else if (choice1 != null)
+                {
                     toPlayer2.write(CONTINUE);
-                }
-                else if (choice2 != null){
+                } else if (choice2 != null)
+                {
                     toPlayer1.write(CONTINUE);
 
-                }
-                else{
+                } else
+                {
                     toPlayer2.write(CONTINUE);
                     toPlayer1.write(CONTINUE);
                 }
 
 
             }
-        }
-        catch(IOException ex) {
+        } catch (IOException ex)
+        {
             System.err.println(ex);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e)
+        {
             e.printStackTrace();
         }
     }
 
     private void sendMove(DataOutputStream out, int row, int column)
-            throws IOException {
+            throws IOException
+    {
         out.write(row); // Send row index
         out.writeInt(column); // Send column index
     }
     /** Determine if the cells are all occupied */
 
-    /** Determine if the player with the specified token wins */
+    /**
+     * Determine if the player with the specified token wins
+     */
 
-        public int isWon(Object one, Object two){
-            if(one == two)
-                return 0;
-            else if (one instanceof Papier && two instanceof Steen)
-                return 1;
-            else if (one instanceof Steen && two instanceof Schaar)
-                return 1;
-            else if (one instanceof Schaar && two instanceof Papier)
-                return 1;
-            else
-                return 2;
-        }
-
-
+    public int isWon(Object one, Object two)
+    {
+        if (one.equals(two))
+            return 0;
+        else if (one instanceof Papier && two instanceof Steen)
+            return 1;
+        else if (one instanceof Steen && two instanceof Schaar)
+            return 1;
+        else if (one instanceof Schaar && two instanceof Papier)
+            return 1;
+        else
+            return 2;
+    }
 }
 
