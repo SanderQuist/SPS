@@ -2,10 +2,10 @@ package Game;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.Serializable;
 
 
-
-public class Object  {
+public class Object implements Serializable {
 
     private String naam;
     private ImageIcon plaatje;

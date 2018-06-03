@@ -55,12 +55,14 @@ class HandleSession implements Runnable, RockPaperScissorConstants
                 Object choice1 = (Object) fromPlayer1.readObject();
                 Object choice2 = (Object) fromPlayer2.readObject();
 
+                System.out.println("!!!"+choice1.getNaam());
+                System.out.println("!!!"+choice2.getNaam());
 
                 if (choice1 != null && choice2 != null)
                 {
                     // Check if Player 1 wins
-                    if (isWon(choice1, choice2) == 1)
-                    {
+                    if (isWon(choice1, choice2) == 1) {
+                        System.out.println(1);
                         toPlayer1.writeInt(PLAYER1_WON);
                         toPlayer2.writeInt(PLAYER1_WON);
                         break; // Break the loop
@@ -68,12 +70,14 @@ class HandleSession implements Runnable, RockPaperScissorConstants
                     { // Check if all cells are filled
                         toPlayer1.writeInt(DRAW);
                         toPlayer2.writeInt(DRAW);
+                        System.out.println(3);
                         break;
                     } else if (isWon(choice1, choice2) == 2)
                     {
                         // Notify player 2 to take the turn
                         toPlayer1.writeInt(PLAYER2_WON);
                         toPlayer2.writeInt(PLAYER2_WON);
+                        System.out.println(2);
                     }
                 } else if (choice1 != null)
                 {

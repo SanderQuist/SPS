@@ -14,6 +14,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     // Indicate whether the player has the turn
     private boolean myTurn = false;
 
+    private int player;
+
     // selected object
     private Object selected;
 
@@ -109,13 +111,13 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     public void run() {
 
         try {
-            int player = (int) fromServer.readObject();
+            player = (int) fromServer.readObject();
             System.out.println(player);
 
             while (continueToPlay) {
                     waitForPlayerAction();
                     sendMove();
-
+                    receiveInfoFromServer();
 
                 //waitForPlayerAction(); // Wait for players to move to move
 //                    sendMove(); // Send the move to the server
@@ -126,6 +128,40 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
             e.printStackTrace();
         }
     }
+
+    private void receiveInfoFromServer() throws IOException, ClassNotFoundException {
+        // Receive game status
+        int status = (int) fromServer.readObject();
+
+        if (status == PLAYER1_WON) {
+            // Player 1 won, stop playing
+            continueToPlay = false;
+            if (player == 1) {
+                System.out.println("I won! (X)");
+            }
+            else if (player == 2) {
+                System.out.println("Player 1 (X) has won!");
+            }
+        }
+        else if (status == PLAYER2_WON) {
+            // Player 2 won, stop playing
+            continueToPlay = false;
+            if(player == 2) {
+                System.out.println("I won! (O)");
+            }
+            else if (player == 1) {
+                System.out.println("Player 2 (O) has won!");
+            }
+        }
+        else if (status == DRAW) {
+            // No winner, game is over
+            continueToPlay = false;
+            System.out.println("Game is over, no winner!");
+
+        }
+
+    }
+
 
     private void waitForPlayerAction() throws InterruptedException {
         while (waiting) {
