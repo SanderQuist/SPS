@@ -48,11 +48,12 @@ class HandleSession implements Runnable, RockPaperScissorConstants {
             // Write anything to notify player 1 to start
             // This is just to let player 1 know to start
             toPlayer1.writeObject(CONTINUE);
+            toPlayer2.writeObject(CONTINUE);
 
             // Continuously serve the players and determine and report
             // the game status to the players
             while (true) {
-                // Receive a move from player 1
+                // Receive a move from players
                 Object choice1 = (Object) fromPlayer1.readObject();
                 Object choice2 = (Object) fromPlayer2.readObject();
 

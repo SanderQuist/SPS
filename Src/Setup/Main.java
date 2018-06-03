@@ -42,27 +42,47 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private JPanel upperBar;
     private JPanel center;
     private JFrame menu;
-    private Object papieros = new Papier();
-    private Object schaaros = new Schaar();
-    private Object steenos = new Steen();
+    private Object papieros;
+    private Object steenos;
+    private Object schaaros;
+
+    {
+        try {
+            papieros = new Papier();
+            schaaros = new Schaar();
+            steenos = new Steen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private Object choice = null;
-    private Object object = new Object("Kip");
     private JLabel whiteSpace1;
     private JLabel whiteSpace2;
 
-    public Main() throws IOException
-    {
-        createMenu();
-        connectToServer();
-    }
+//    public Main() throws IOException
+//    {
+//        createMenu();
+//        connectToServer();
+//    }
 
     public static void main(String[] args) throws IOException {
+        //Main applet = new Main();
+        JFrame frame = new JFrame("");
+
         Main applet = new Main();
         applet.isStandAlone = true;
         if(args.length == 1) applet.host= args[0];
 
+        frame.getContentPane().add(applet, BorderLayout.CENTER);
 
+        applet.init();
         applet.start();
+
+        frame.setSize(320, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
     private void connectToServer() {
@@ -93,37 +113,97 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     public void run() {
 
         try {
-            int player = fromServer.readInt();
+            int player = (int) fromServer.readObject();
             System.out.println(player);
 
             while (continueToPlay) {
-//                    waitForPlayerAction(); // Wait for players to move to move
+                    waitForPlayerAction();
+                    sendMove();
+
+
+                //waitForPlayerAction(); // Wait for players to move to move
 //                    sendMove(); // Send the move to the server
 //                    receiveInfoFromServer(); // Receive info from the server
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void createMenu(){
-        menu = new JFrame();
-        content = new JPanel(new BorderLayout());
-        menu.add(content);
-        center = new JPanel(new GridBagLayout());
-        content.add(center, BorderLayout.CENTER);
-        upperBar = new JPanel();
-        content.add(upperBar,BorderLayout.NORTH);
-        setupComponents();
+    private void waitForPlayerAction() throws InterruptedException {
+        while (waiting) {
+            Thread.sleep(100);
+        }
 
-        menu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        menu.setVisible(true);
+        waiting = true;
     }
 
-    public void paintComponent(Graphics2D g){
+    private void sendMove() throws IOException {
+        toServer.writeObject(choice);
+    }
+
+    public void init(){
+        JPanel p = new JPanel(new BorderLayout());
+//        content = new JPanel(new BorderLayout());
+//        menu.add(content);
+        center = new JPanel(new GridBagLayout());
+        p.add(center, BorderLayout.CENTER);
+        upperBar = new JPanel();
+        p.add(upperBar,BorderLayout.NORTH);
+        //setupComponents();
+
+        steen = new JButton(steenos.getPlaatje());
+        papier = new JButton(papieros.getPlaatje());
+        schaar = new JButton(schaaros.getPlaatje());
+        timer = new JLabel("Tijd:" + tijd);
+        whiteSpace1 = new JLabel("");
+        whiteSpace2 = new JLabel("");
+
+        timer.setFont(new Font("TimesRoman", 1, 20));
+
+        steen.addActionListener(evt -> {
+            if(choice==null)
+                choice = steenos;
+            waiting = false;
+            System.out.println(choice.getNaam());
+
+        });
+
+        papier.addActionListener(evt -> {
+            if(choice==null)
+                choice = papieros;
+            waiting = false;
+
+            System.out.println(choice.getNaam());
+        });
+
+        schaar.addActionListener(evt -> {
+            if(choice==null)
+                choice = schaaros;
+            waiting = false;
+            System.out.println(choice.getNaam());
+        });
+
+        steen.setPreferredSize(new Dimension(135,181));
+        papier.setPreferredSize(new Dimension(136,181));
+        schaar.setPreferredSize(new Dimension(230,181));
+        whiteSpace1.setPreferredSize(new Dimension(100,100));
+        whiteSpace2.setPreferredSize(new Dimension(100,100));
+
+        center.add(steen);
+        center.add(whiteSpace1);
+        center.add(schaar);
+        center.add(whiteSpace2);
+        center.add(papier);
+        upperBar.add(timer);
+
+        add(p, BorderLayout.CENTER);
+        connectToServer();
+
+    }
+
+    public void paintCompontents(Graphics2D g){
         super.paintComponents(g);
         Graphics2D g2d = (Graphics2D) g;
 

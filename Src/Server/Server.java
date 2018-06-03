@@ -59,7 +59,7 @@ public class Server
 
                 // Notify that the player is Player 1
                 new ObjectOutputStream(
-                        player1.getOutputStream()).writeInt(PLAYER1);
+                        player1.getOutputStream()).writeObject(PLAYER1);
 
                 // Connect to player 2
                 Socket player2 = serverSocket.accept();
@@ -71,7 +71,7 @@ public class Server
 
                 // Notify that the player is Player 2
                 new ObjectOutputStream(
-                        player2.getOutputStream()).writeInt(PLAYER2);
+                        player2.getOutputStream()).writeObject(PLAYER2);
 
                 // Display this session and increment session number
                 jtaLog.append(new Date() + ": Start a thread for session " +
