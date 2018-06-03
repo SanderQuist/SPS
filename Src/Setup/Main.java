@@ -36,10 +36,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private JButton steen;
     private JButton papier;
     private JButton schaar;
-    private JPanel content;
     private JPanel upperBar;
     private JPanel center;
-    private JFrame menu;
     private Object papieros;
     private Object steenos;
     private Object schaaros;
@@ -78,7 +76,7 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         applet.init();
         applet.start();
 
-        frame.setSize(320, 300);
+        frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
