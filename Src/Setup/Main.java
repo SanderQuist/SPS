@@ -20,8 +20,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private Object selected;
 
     // input and output stream
-    private ObjectInputStream fromServer;
-    private ObjectOutputStream toServer;
+    private DataInputStream fromServer;
+    private DataOutputStream toServer;
 
     // Continue to play?
     private boolean continueToPlay = true;
@@ -93,10 +93,10 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
                 socket = new Socket(getCodeBase().getHost(), 8000);
 
             // Create an input stream to receive data from the server
-            fromServer = new ObjectInputStream(socket.getInputStream());
+            fromServer = new DataInputStream(socket.getInputStream());
 
             // Create an output stream to send data to the server
-            toServer = new ObjectOutputStream(socket.getOutputStream());
+            toServer = new DataOutputStream(socket.getOutputStream());
         }
         catch (Exception ex) {
             System.err.println(ex);
@@ -111,7 +111,7 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     public void run() {
 
         try {
-            player = (int) fromServer.readObject();
+            player = fromServer.readInt();
             System.out.println(player);
 
             while (continueToPlay) {
@@ -131,7 +131,11 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
 
     private void receiveInfoFromServer() throws IOException, ClassNotFoundException {
         // Receive game status
-        int status = (int) fromServer.readObject();
+
+        System.out.println("Test");
+        int status = fromServer.readInt();
+        System.out.println("koala"+status);
+
 
         if (status == PLAYER1_WON) {
             // Player 1 won, stop playing
@@ -162,7 +166,6 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
 
     }
 
-
     private void waitForPlayerAction() throws InterruptedException {
         while (waiting) {
             Thread.sleep(100);
@@ -172,7 +175,19 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     }
 
     private void sendMove() throws IOException {
-        toServer.writeObject(choice);
+
+        Socket socket;
+        if (isStandAlone)
+            socket = new Socket(host, 8000);
+        else
+            socket = new Socket(getCodeBase().getHost(), 8000);
+
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
+
+        oos.writeObject(choice);
+
+        //oos.close();
     }
 
     public void init(){
