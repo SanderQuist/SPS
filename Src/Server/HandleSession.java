@@ -6,6 +6,7 @@ import Game.Schaar;
 import Game.Steen;
 import Setup.RockPaperScissorConstants;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.io.*;
 import java.net.Socket;
 
@@ -60,20 +61,34 @@ class HandleSession implements Runnable, RockPaperScissorConstants
                 System.out.println("!!!"+choice2.getNaam());
 
                 // Check if Player 1 wins
+
+                System.out.println(isWon(choice1, choice2));
                 if (isWon(choice1, choice2) == 1) {
                     System.out.println(1);
+//                    new DataOutputStream(
+//                            player1.getOutputStream()).writeInt(PLAYER1_WON);
+//                    new DataOutputStream(
+//                            player2.getOutputStream()).writeInt(PLAYER1_WON);
                     toPlayer1.writeInt(PLAYER1_WON);
                     toPlayer2.writeInt(PLAYER1_WON);
                     break; // Break the loop
-                } else if (isWon(choice1, choice2) == 0)
+                } else if (isWon(choice1, choice2) == DRAW)
                 { // Check if all cells are filled
+//                    new DataOutputStream(
+//                            player1.getOutputStream()).writeInt(DRAW);
+//                    new DataOutputStream(
+//                            player2.getOutputStream()).writeInt(DRAW);
                     toPlayer1.writeInt(DRAW);
                     toPlayer2.writeInt(DRAW);
                     System.out.println(3);
                     break;
-                } else if (isWon(choice1, choice2) == 2)
+                } else if (isWon(choice1, choice2) == PLAYER2_WON)
                 {
                     // Notify player 2 to take the turn
+//                    new DataOutputStream(
+//                            player1.getOutputStream()).writeInt(PLAYER2_WON);
+//                    new DataOutputStream(
+//                            player2.getOutputStream()).writeInt(PLAYER2_WON);
                     toPlayer1.writeInt(PLAYER2_WON);
                     toPlayer2.writeInt(PLAYER2_WON);
                     System.out.println(2);
@@ -107,7 +122,7 @@ class HandleSession implements Runnable, RockPaperScissorConstants
     public int isWon(Object one, Object two)
     {
         if (one.getClass().getName().equals(two.getClass().getName()))
-            return 0;
+            return 3;
         else if (one instanceof Papier && two instanceof Steen)
             return 1;
         else if (one instanceof Steen && two instanceof Schaar)
