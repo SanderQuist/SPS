@@ -32,7 +32,7 @@ public class Server
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
-        setTitle("TicTacToeServer");
+        setTitle("Server");
         setVisible(true);
 
         try {

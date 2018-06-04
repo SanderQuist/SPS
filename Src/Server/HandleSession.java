@@ -5,6 +5,7 @@ import Game.Papier;
 import Game.Schaar;
 import Game.Steen;
 import Setup.RockPaperScissorConstants;
+import sun.security.provider.NativePRNG;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.io.*;
@@ -35,6 +36,7 @@ class HandleSession implements Runnable, RockPaperScissorConstants
             // Create data input and output streams
             ObjectInputStream fromPlayer1 = new ObjectInputStream(
                     player1.getInputStream());
+            
             DataOutputStream toPlayer1 = new DataOutputStream(
                     player1.getOutputStream());
             ObjectInputStream fromPlayer2 = new ObjectInputStream(
@@ -56,6 +58,7 @@ class HandleSession implements Runnable, RockPaperScissorConstants
                 // Receive a move from players
                 Object choice1 = (Object) fromPlayer1.readObject();
                 Object choice2 = (Object) fromPlayer2.readObject();
+
 
                 System.out.println("!!!"+choice1.getNaam());
                 System.out.println("!!!"+choice2.getNaam());

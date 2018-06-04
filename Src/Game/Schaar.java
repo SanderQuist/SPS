@@ -9,7 +9,7 @@ public class Schaar extends Object implements Serializable {
 
 
     public Schaar() throws IOException {
-        super("SPS\\Resources\\scissors.png");
+        super("Resources\\scissors.png");
     }
 
 

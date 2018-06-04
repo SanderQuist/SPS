@@ -9,7 +9,7 @@ public class Steen extends Object implements Serializable {
 
 
     public Steen() throws IOException {
-        super("SPS\\Resources\\Rock.png");
+        super("Resources\\Rock.png");
     }
 
 

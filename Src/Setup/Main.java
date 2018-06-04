@@ -43,6 +43,10 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private Object papieros;
     private Object steenos;
     private Object schaaros;
+    private JLabel playerNumber;
+    private JLabel youWon;
+    private JLabel youLose;
+    private JPanel bottom;
 
     {
         try {
@@ -113,6 +117,7 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         try {
             player = fromServer.readInt();
             System.out.println(player);
+            playerNumber.setText("You are player: " + player);
 
 
             while (continueToPlay) {
@@ -144,9 +149,11 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
             continueToPlay = false;
             if (player == 1) {
                 System.out.println("I won! (X)");
+                youWon.setVisible(true);
             }
             else if (player == 2) {
                 System.out.println("Player 1 (X) has won!");
+                youLose.setVisible(true);
             }
         }
         else if (status == PLAYER2_WON) {
@@ -154,9 +161,11 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
             continueToPlay = false;
             if(player == 2) {
                 System.out.println("I won! (O)");
+                youWon.setVisible(true);
             }
             else if (player == 1) {
                 System.out.println("Player 2 (O) has won!");
+                youLose.setVisible(true);
             }
         }
         else if (status == DRAW) {
@@ -200,6 +209,8 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         p.add(center, BorderLayout.CENTER);
         upperBar = new JPanel();
         p.add(upperBar,BorderLayout.NORTH);
+        bottom = new JPanel();
+        p.add(bottom, BorderLayout.SOUTH);
         //setupComponents();
 
         steen = new JButton(steenos.getPlaatje());
@@ -207,6 +218,9 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         schaar = new JButton(schaaros.getPlaatje());
         whiteSpace1 = new JLabel("");
         whiteSpace2 = new JLabel("");
+        playerNumber = new JLabel("You are player: ");
+        youWon = new JLabel("You won!");
+        youLose = new JLabel("You lost :(");
 
         steen.addActionListener(evt -> {
             if(choice==null)
@@ -236,12 +250,21 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
         schaar.setPreferredSize(new Dimension(230,181));
         whiteSpace1.setPreferredSize(new Dimension(100,100));
         whiteSpace2.setPreferredSize(new Dimension(100,100));
+        youWon.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+        youLose.setFont(new Font("TimesRoman", Font.PLAIN, 48));
+        playerNumber.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 
         center.add(steen);
         center.add(whiteSpace1);
         center.add(schaar);
         center.add(whiteSpace2);
         center.add(papier);
+        upperBar.add(youWon);
+        upperBar.add(youLose);
+        bottom.add(playerNumber);
+
+        youWon.setVisible(false);
+        youLose.setVisible(false);
 
         add(p, BorderLayout.CENTER);
         connectToServer();

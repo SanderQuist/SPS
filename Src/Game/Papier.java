@@ -9,7 +9,7 @@ public class Papier extends Object implements Serializable {
 
 
     public Papier() throws IOException {
-        super("SPS\\Resources\\Paper.png");
+        super("Resources\\Paper.png");
     }
 
 
