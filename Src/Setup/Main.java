@@ -115,9 +115,11 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     public void run() {
 
         try {
+            System.out.println("C: 1");
             player = fromServer.readInt();
             System.out.println(player);
             playerNumber.setText("You are player: " + player);
+
 
 
             while (continueToPlay) {
@@ -138,8 +140,9 @@ public class Main extends JApplet implements Runnable, RockPaperScissorConstants
     private void receiveInfoFromServer() throws ClassNotFoundException, IOException {
         // Receive game status
 
-        System.out.println("Test");
+        System.out.println("readingData");
 
+        System.out.println("C: 2");
         int status = fromServer.readInt();
         System.out.println("koala"+status);
 
